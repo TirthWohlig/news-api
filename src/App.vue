@@ -46,6 +46,13 @@
 </template>
 <script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
 <script>
+const API_URL =
+  "https://newsapi.org/v2/everything?q=tesla&from=2022-10-18&sortBy=publishedAt&apiKey=44260ed9dafe458b9d2cdd740fcf785b" +
+  "&page=  ";
+
+  getNews(API_URL, "1"),
+</script>
+<script>
 export default {
   data() {
     return {
@@ -59,16 +66,22 @@ export default {
       )
       .then((res) => {
         this.news = res.data.articles;
-        console.log(res.data);
+        console.log(res.data.articles);
       });
   },
   methods: {
+    getNews(ex, page) {
+      if (page) {
+        ex = ex + page;
+      }
+    },
     nextPage() {
       var a = parseInt(document.getElementById("page").value);
       var b = a + 1;
       a = b;
       document.getElementById("page").value = b;
       console.log(b);
+      getNews(API_URL, b);
     },
     prevPage() {
       var c = parseInt(document.getElementById("page").value);
@@ -78,6 +91,7 @@ export default {
         c = d;
         document.getElementById("page").value = d;
         console.log(d);
+        getNews(API_URL, d);
       }
     },
   },
@@ -148,49 +162,5 @@ main {
   flex-wrap: wrap;
   flex-direction: column;
   margin-top: 20px;
-}
-
-.prov {
-  /* animation properties */
-  -moz-transform: translateX(100%);
-  -webkit-transform: translateX(100%);
-  transform: translateX(100%);
-
-  -moz-animation: my-animation 15s linear infinite;
-  -webkit-animation: my-animation 15s linear infinite;
-  animation: my-animation 15s linear infinite;
-}
-
-/* for Firefox */
-@-moz-keyframes my-animation {
-  from {
-    -moz-transform: translateX(100%);
-  }
-  to {
-    -moz-transform: translateX(-100%);
-  }
-}
-
-/* for Chrome */
-@-webkit-keyframes my-animation {
-  from {
-    -webkit-transform: translateX(100%);
-  }
-  to {
-    -webkit-transform: translateX(-100%);
-  }
-}
-
-@keyframes my-animation {
-  from {
-    -moz-transform: translateX(100%);
-    -webkit-transform: translateX(100%);
-    transform: translateX(100%);
-  }
-  to {
-    -moz-transform: translateX(-100%);
-    -webkit-transform: translateX(-100%);
-    transform: translateX(-100%);
-  }
 }
 </style>
