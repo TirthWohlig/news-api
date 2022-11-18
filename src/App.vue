@@ -36,7 +36,7 @@
           <li class="page-item">
             <a @click="prevPage()" class="page-link">Previous</a>
           </li>
-          <li class="page-item">
+          <li class="page-item">      
             <a class="page-link" v-on:click="nextPage()">Next</a>
           </li>
         </ul>
@@ -51,6 +51,7 @@ const API_URL =
   "&page=  ";
 
   getNews(API_URL, "1"),
+
 </script>
 <script>
 export default {
