@@ -36,7 +36,7 @@
           <li class="page-item">
             <a @click="prevPage()" class="page-link">Previous</a>
           </li>
-          <li class="page-item">      
+          <li class="page-item">
             <a class="page-link" v-on:click="nextPage()">Next</a>
           </li>
         </ul>
@@ -46,35 +46,29 @@
 </template>
 <script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
 <script>
-const API_URL =
-  "https://newsapi.org/v2/everything?q=tesla&from=2022-10-18&sortBy=publishedAt&apiKey=44260ed9dafe458b9d2cdd740fcf785b" +
-  "&page=  ";
-
-  getNews(API_URL, "1"),
-
-</script>
-<script>
 export default {
   data() {
     return {
       news: [],
+      API_URL:
+        "https://newsapi.org/v2/everything?q=tesla&from=2022-10-22&sortBy=publishedAt&apiKey=44260ed9dafe458b9d2cdd740fcf785b" +
+        "&page=",
     };
   },
   created() {
-    this.$axios
-      .get(
-        "https://newsapi.org/v2/everything?q=tesla&from=2022-10-18&sortBy=publishedAt&apiKey=44260ed9dafe458b9d2cdd740fcf785b"
-      )
-      .then((res) => {
-        this.news = res.data.articles;
-        console.log(res.data.articles);
-      });
+    this.getNews(this.API_URL, "1");
   },
   methods: {
     getNews(ex, page) {
       if (page) {
         ex = ex + page;
       }
+      fetch(ex)
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+          this.news = data.articles;
+        });
     },
     nextPage() {
       var a = parseInt(document.getElementById("page").value);
@@ -82,7 +76,7 @@ export default {
       a = b;
       document.getElementById("page").value = b;
       console.log(b);
-      getNews(API_URL, b);
+      this.getNews(this.API_URL, b);
     },
     prevPage() {
       var c = parseInt(document.getElementById("page").value);
@@ -92,15 +86,14 @@ export default {
         c = d;
         document.getElementById("page").value = d;
         console.log(d);
-        getNews(API_URL, d);
+        this.getNews(this.API_URL, d);
       }
     },
   },
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style>
 @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;1,100;1,200;1,300;1,400&display=swap");
 
 * {
