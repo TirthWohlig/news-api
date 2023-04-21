@@ -31,7 +31,7 @@
           </div>
         </a>
       </div>
-      <nav aria-label="Page navigation example">
+      <div class="container">
         <ul class="pagination justify-content-center">
           <li class="page-item">
             <a @click="prevPage()" class="page-link">Previous</a>
@@ -40,7 +40,7 @@
             <a class="page-link" v-on:click="nextPage()">Next</a>
           </li>
         </ul>
-      </nav>
+      </div>
     </main>
   </div>
 </template>
@@ -51,7 +51,7 @@ export default {
     return {
       news: [],
       API_URL:
-        "https://newsapi.org/v2/everything?q=tesla&from=2022-10-22&sortBy=publishedAt&apiKey=44260ed9dafe458b9d2cdd740fcf785b" +
+        "https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=44260ed9dafe458b9d2cdd740fcf785b" +
         "&page=",
     };
   },
@@ -156,5 +156,9 @@ main {
   flex-wrap: wrap;
   flex-direction: column;
   margin-top: 20px;
+}
+.container {
+  position: sticky;
+  bottom: 0;
 }
 </style>
